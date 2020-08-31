@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import uuid from "uuid";
+import { v4 as uuidv4 } from "uuid";
 export default {
   name: "AddTodo",
   data() {
@@ -22,12 +22,15 @@ export default {
     };
   },
   methods: {
-    addTodo() {
+    addTodo(e) {
+      e.preventDefault();
       const newTodo = {
-        id: uuid.v4(),
+        id: uuidv4(),
         title: this.title,
         completed: false,
       };
+      this.$emit("add-todo", newTodo);
+      this.title = "";
     },
   },
 };
